@@ -1,14 +1,15 @@
 body {
   margin: 0;
   background-color: #414141;
-  font-family: 'Copperplate', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Copperplate', 'Alegreya Sans SC', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
-code {
-  font-family: 'Copperplate', 'Courier New',
-    monospace;
+h2 {
+  font-family: 'Copperplate', 'Alegreya Sans SC', sans-serif;
+  font-size: 3vw;
+}
+h3 {
+  font-family: 'Copperplate', 'Alegreya Sans SC', sans-serif;
+  font-size: 1vw;
 }
