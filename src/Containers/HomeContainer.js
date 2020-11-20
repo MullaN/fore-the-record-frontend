@@ -3,6 +3,7 @@ import {Container, Card} from 'semantic-ui-react';
 import HomeSplash from '../Components/HomeSplash'
 import CourseCard from '../Components/CourseCard';
 import '../App.css'
+import ScoreCardContainer from './ScoreCardContainer';
 
 class HomeContainer extends Component {
     state = {
@@ -29,6 +30,7 @@ class HomeContainer extends Component {
                 <br />
                 <br />
                 <h2>TOP SCORES</h2>
+                <ScoreCardContainer url='http://localhost:4000/rounds'/>
             </>
         )
     }

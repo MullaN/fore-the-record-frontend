@@ -17,6 +17,30 @@
   display:inline-block;
 }
 
+.Scorecard {
+  width: 50%;
+  margin: auto;
+  background-color: rgba(22,110,20,1);
+  border-radius: 25px;
+}
+
+.Scorecard img {
+  height: 4vw
+}
+
+.Scorecard table {
+  border: 1px solid white;
+  border-collapse: collapse;
+}
+
+.Scorecard td, th {
+  border: 1px solid white;
+}
+
+.Scorecard th {
+  width: 3vw
+}
+
 /*.App-logo {
   height: 40vmin;
   pointer-events: none;
