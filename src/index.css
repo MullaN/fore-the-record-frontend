@@ -5,6 +5,10 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+h1 {
+  font-family: 'Copperplate', 'Alegreya Sans SC', sans-serif;
+  font-size: 7vw;
+}
 h2 {
   font-family: 'Copperplate', 'Alegreya Sans SC', sans-serif;
   font-size: 3vw;
@@ -12,4 +16,9 @@ h2 {
 h3 {
   font-family: 'Copperplate', 'Alegreya Sans SC', sans-serif;
   font-size: 1vw;
+}
+
+#main-profile {
+  border: 1px solid white;
+  border-radius: 15px;
 }
