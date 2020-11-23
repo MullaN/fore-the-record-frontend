@@ -9,7 +9,7 @@ class ScoreCardContainer extends Component {
     componentDidMount(){
         fetch(this.props.url)
         .then(resp => resp.json())
-        .then(rounds => this.setState({ rounds: rounds.slice(0, 20) }))
+        .then(rounds => this.setState({ rounds }))
     }
 
     render(){

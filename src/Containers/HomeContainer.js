@@ -30,7 +30,7 @@ class HomeContainer extends Component {
                 <br />
                 <br />
                 <h2>TOP SCORES</h2>
-                <ScoreCardContainer url='http://localhost:4000/rounds'/>
+                <ScoreCardContainer url='http://localhost:4000/rounds/20'/>
             </>
         )
     }

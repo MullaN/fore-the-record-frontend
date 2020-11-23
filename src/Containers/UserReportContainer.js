@@ -21,8 +21,8 @@ class UserReportContainer extends Component {
         if (user && user.id){
             return (
                 <div>
-                        <img id='main-profile' src={user.avatar} alt={user.username} />
-                        <h1>{user.username}</h1>
+                    <img id='main-profile' src={user.avatar} alt={user.username} />
+                    <h1>{user.username}</h1>
                     <Grid columns={3}>
                         <Grid.Column>
                             <h1>{user.handicap}</h1>
@@ -35,8 +35,8 @@ class UserReportContainer extends Component {
                             <h3>BEST MAP</h3>
                         </Grid.Column>
                         <Grid.Column>
-                            <h1>{user.best_round.score}</h1>
-                            <h3>BEST ROUND</h3>
+                            <h1 id='best-round-score'>{user.best_round.score}</h1>
+                            <h3>BEST ROUND ({user.best_round.course.name})</h3>
                         </Grid.Column>
                     </Grid>
                     <br />
