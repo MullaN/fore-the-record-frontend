@@ -10,7 +10,7 @@ class UserReportContainer extends Component {
 
     componentDidMount(){
         const userId = this.props.match.params.id
-        fetch(`http://localhost:4000/users/${userId}`)
+        fetch(`https://fore-the-record-backend.herokuapp.com/users/${userId}`)
         .then(resp => resp.json())
         .then(user => this.setState({ user }))
         .catch(errors => console.log(errors))
@@ -42,7 +42,7 @@ class UserReportContainer extends Component {
                     <br />
                     <br />
                     <h2>LAST 20 ROUNDS</h2>
-                    <ScoreCardContainer url={`http://localhost:4000/users/${user.id}/rounds`}/>
+                    <ScoreCardContainer url={`https://fore-the-record-backend.herokuapp.com/users/${user.id}/rounds`}/>
                 </div>
             )
         } else if (!user){

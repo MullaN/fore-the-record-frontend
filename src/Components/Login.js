@@ -16,7 +16,7 @@ class Login extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault()
-        fetch('http://localhost:4000/login', {
+        fetch('https://fore-the-record-backend.herokuapp.com/login', {
             method: 'POST',
             headers: {
                 'Content-Type':'application/json'
@@ -24,7 +24,10 @@ class Login extends Component {
             body: JSON.stringify(this.state)
         })
         .then(resp => resp.json())
-        .then(user => this.props.loginUser(JSON.parse(user.user)))
+        .then(user => {
+            localStorage.setItem('token', user.jwt)
+            this.props.loginUser(JSON.parse(user.user))
+        })
     }
 
     render(){

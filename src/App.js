@@ -5,17 +5,37 @@ import HomeContainer from './Containers/HomeContainer'
 import UserReportContainer from './Containers/UserReportContainer'
 import Signup from './Components/Signup'
 import Login from './Components/Login'
+import CoursesContainer from './Containers/CoursesContainer'
+import SumbitScoresContainer from './Containers/SubmitScoresContainer'
 import React, {Component} from 'react'
 
 class App extends Component {
   state = {
-    user: null,
+    user: null
+  }
 
+  componentDidMount(){
+    const token = localStorage.getItem('token')
+    if(token){
+      fetch('http://localhost:4000/profile',{
+        method: 'GET',
+        headers: {
+          'Authorization':`Bearer ${token}`
+        }
+      })
+      .then(resp => resp.json())
+      .then(user => this.setState({user}))
+    }
   }
 
   loginUser = (user) => {
-    console.log(typeof user)
     this.setState({ user })
+  }
+
+  logoutUser = () => {
+    localStorage.removeItem('token')
+    this.setState({user: null})
+    return <Redirect to="/" />
   }
 
   render(){
@@ -26,8 +46,11 @@ class App extends Component {
           <main>
             <Route path='/' exact component={() => <HomeContainer />} />
             <Route path='/users/:id' component={UserReportContainer} />
+            <Route path='/courses' component={CoursesContainer} />
+            <Route path='/submitscores' component={() => this.state.user ? <SumbitScoresContainer user={this.state.user}/>  : <Redirect to="/login" />} />
             <Route path='/signup' component={() => this.state.user ? <Redirect to="/" /> : <Signup loginUser={this.loginUser}/>} />
             <Route path='/login' component={() => this.state.user ? <Redirect to="/" /> : <Login loginUser={this.loginUser}/>} />
+            <Route path='/logout' component={() => this.state.user ? this.logoutUser() : <Redirect to="/" />} />
           </main>
         </Router>
       </div>

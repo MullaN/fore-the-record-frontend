@@ -9,7 +9,8 @@ class ScoreCardContainer extends Component {
     componentDidMount(){
         fetch(this.props.url)
         .then(resp => resp.json())
-        .then(rounds => this.setState({ rounds }))
+        .then(rounds => {
+            rounds.name ? this.setState({rounds: rounds.top_ten_rounds}) : this.setState({ rounds })})
     }
 
     render(){
@@ -40,7 +41,7 @@ class ScoreCardContainer extends Component {
                         <th>17</th>
                         <th>18</th>
                     </tr>
-                    {this.state.rounds.map(round => <Score round={round}/>)}
+                    {this.state.rounds.map(round => <Score round={round} key={round.id}/>)}
                 </table>
                 <br />
             </div>

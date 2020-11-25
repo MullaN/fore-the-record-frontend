@@ -26,6 +26,10 @@
   border-radius: 25px;
 }
 
+.Scorecard input {
+  width: 1.5vw;
+}
+
 .Scorecard img {
   height: 4vw
 }

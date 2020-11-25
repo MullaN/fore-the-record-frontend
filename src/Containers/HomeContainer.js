@@ -11,7 +11,7 @@ class HomeContainer extends Component {
     }
 
     componentDidMount(){
-        fetch('http://localhost:4000/courses')
+        fetch('https://fore-the-record-backend.herokuapp.com/courses')
         .then(resp => resp.json())
         .then(courses => this.setState({ courses }))
     }
@@ -24,13 +24,13 @@ class HomeContainer extends Component {
                 <h2>TOP PLAYED COURSES</h2>
                 <Container textAlign='center'>
                     <Card.Group itemsPerRow={3}>
-                        {topThree.map(course => <CourseCard course={course}/>)}
+                        {topThree.map(course => <CourseCard course={course} key={course.id}/>)}
                     </Card.Group>
                 </Container>
                 <br />
                 <br />
                 <h2>TOP SCORES</h2>
-                <ScoreCardContainer url='http://localhost:4000/rounds/20'/>
+                <ScoreCardContainer url='https://fore-the-record-backend.herokuapp.com/rounds/20'/>
             </>
         )
     }
