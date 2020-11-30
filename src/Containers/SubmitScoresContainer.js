@@ -28,7 +28,7 @@ class SumbitScoresContainer extends Component {
 
     componentDidMount(){
         const token = localStorage.getItem('token')
-        Promise.all([fetch('https://fore-the-record-backend.herokuapp.com/courses/'), fetch(`http://localhost:4000/users/${this.props.user.id}/friends`, {
+        Promise.all([fetch('https://fore-the-record-backend.herokuapp.com/courses/'), fetch(`https://fore-the-record-backend.herokuapp.com/users/${this.props.user.id}/friends`, {
             method: 'GET',
             headers: {
                 'Authorization':`Bearer ${token}`
@@ -41,9 +41,6 @@ class SumbitScoresContainer extends Component {
         .then(([courses, friends]) => {
           this.setState({courses, friends})
         });
-        // fetch('https://fore-the-record-backend.herokuapp.com/courses/')
-        // .then(resp => resp.json())
-        // .then(courses => this.setState({ courses }))
     }
 
     selectionChange = (e) =>{
@@ -101,7 +98,7 @@ class SumbitScoresContainer extends Component {
 
     submitScores = () => {
         const token = localStorage.getItem('token')
-        fetch('http://localhost:4000/matches', {
+        fetch('https://fore-the-record-backend.herokuapp.com/matches', {
             method: 'POST',
             headers: {
                 'Authorization':`Bearer ${token}`,

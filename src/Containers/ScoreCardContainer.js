@@ -41,7 +41,7 @@ class ScoreCardContainer extends Component {
                         <th>17</th>
                         <th>18</th>
                     </tr>
-                    {this.state.rounds.map(round => <Score round={round} key={round.id}/>)}
+                    {this.state.rounds.error ? null : this.state.rounds.map(round => <Score round={round} key={round.id}/>)}
                 </table>
                 <br />
             </div>

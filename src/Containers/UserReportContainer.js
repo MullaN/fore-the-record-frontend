@@ -30,13 +30,13 @@ class UserReportContainer extends Component {
                         </Grid.Column>
                         <Grid.Column>
                             <div className="ui centered card">
-                                <CourseCard course={user.best_course} />
+                                {user.best_course.name ? <CourseCard course={user.best_course} /> : null}
                             </div>
                             <h3>BEST MAP</h3>
                         </Grid.Column>
                         <Grid.Column>
-                            <h1 id='best-round-score'>{user.best_round.score}</h1>
-                            <h3>BEST ROUND ({user.best_round.course.name})</h3>
+                            {user.best_round.score ? <h1 id='best-round-score'>{user.best_round.score}</h1> : 'N/A'}
+                            <h3>BEST ROUND ({user.best_round.course ? user.best_round.course.name : 'N/A'})</h3>
                         </Grid.Column>
                     </Grid>
                     <br />

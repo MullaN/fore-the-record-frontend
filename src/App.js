@@ -17,7 +17,7 @@ class App extends Component {
   componentDidMount(){
     const token = localStorage.getItem('token')
     if(token){
-      fetch('http://localhost:4000/profile',{
+      fetch('https://fore-the-record-backend.herokuapp.com/profile',{
         method: 'GET',
         headers: {
           'Authorization':`Bearer ${token}`

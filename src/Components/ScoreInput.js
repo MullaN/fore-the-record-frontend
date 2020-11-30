@@ -4,7 +4,7 @@ const ScoreInput = (props) => {
     return (
         <table>
         <tr>
-            <th>User</th>
+            <th>{props.user ? props.user.username : 'User'}</th>
             <th>1</th>
             <th>2</th>
             <th>3</th>
