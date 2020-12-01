@@ -1,5 +1,7 @@
 import React, {Component} from 'react'
 import ScoreInput from '../Components/ScoreInput'
+import { Redirect } from 'react-router-dom'
+import '../App.css'
 
 class SumbitScoresContainer extends Component {
     state = {
@@ -23,7 +25,8 @@ class SumbitScoresContainer extends Component {
                 hole_17: '',
                 hole_18: ''}],
         courses: [],
-        friends: []
+        friends: [],
+        submitted: false
     }
 
     componentDidMount(){
@@ -34,7 +37,6 @@ class SumbitScoresContainer extends Component {
                 'Authorization':`Bearer ${token}`
             }
         })])
-
         .then(([resp1, resp2]) => { 
            return Promise.all([resp1.json(), resp2.json()]) 
         })
@@ -98,6 +100,9 @@ class SumbitScoresContainer extends Component {
 
     submitScores = () => {
         const token = localStorage.getItem('token')
+        const button = document.getElementById('submit-button')
+        button.disabled = true
+        button.innerText = "Submitting..."
         fetch('https://fore-the-record-backend.herokuapp.com/matches', {
             method: 'POST',
             headers: {
@@ -106,54 +111,65 @@ class SumbitScoresContainer extends Component {
             },
             body: JSON.stringify({course: this.state.course, users: this.state.users})
         })
+        .then(resp => {
+            this.setState({submitted: true})
+        })
     }
 
     render(){
-        const {courses, users} = this.state
-        let course = null
-        if (this.state.course) {
-            course = this.state.courses.find(course => course.id === parseInt(this.state.course))
-        }
-        return(
-            <div>
-                <h2>SUBMIT YOUR SCORES!</h2>
-                {this.state.course ? 
-                <div>
-                    <img src={'/' + course.cover_img} alt={course.name} style={{width: '15vw', border: '1px solid white', borderRadius: '15px',}}/>
-                    <h2 style={{display: 'inline'}}>   {course.name}</h2>
+        if (this.state.submitted){
+            return(
+                <>
+                    <Redirect to={`/users/${this.props.user.id}`} />
+                </>
+            )
+        } else {
+            const {courses, users} = this.state
+            let course = null
+            if (this.state.course) {
+                course = this.state.courses.find(course => course.id === parseInt(this.state.course))
+            }
+            return(
+                <div id='submit-scores-container'>
+                    <h2>SUBMIT YOUR SCORES!</h2>
+                    {this.state.course ? 
+                    <div>
+                        <img src={'/' + course.cover_img} alt={course.name} style={{width: '15vw', border: '1px solid white', borderRadius: '15px',}}/>
+                        <h2 style={{display: 'inline'}}>   {course.name}</h2>
+                    </div>
+                    
+                    : 
+                    null}
+                    <select name="course" id="course" onChange={this.selectionChange}>
+                        <option value='null'>Please Select the Course</option>
+                        {courses.map(course => <option value={course.id}>{course.name}</option>)}
+                    </select>
+                    <br />
+                    <br />
+                    {this.state.course ? 
+                    this.state.users.map( (userscore, index) => {
+                        return(
+                            <>
+                                <div className="Scorecard">
+                                    <br />
+                                    <ScoreInput course={course} user={users[index].user} friends={this.state.friends} index={index} userscore={userscore} changeUser={this.changeUser} changeData={this.changeData}/>
+                                    <br />
+                                </div>
+                                <br />
+                                <br />
+                            </>
+                        )
+                    })
+                    : null} 
+                    <br />
+                    <br />
+                    {this.state.course && this.state.users.length < 12 ? <button onClick={this.addNewUser}>Add another score </button>: null}
+                    <br />
+                    <br />
+                    <button id='submit-button' onClick={this.submitScores}>Submit Scores</button>
                 </div>
-                
-                 : 
-                 null}
-                <select name="course" id="course" onChange={this.selectionChange}>
-                    <option value='null'>Please Select the Course</option>
-                    {courses.map(course => <option value={course.id}>{course.name}</option>)}
-                </select>
-                <br />
-                <br />
-                {this.state.course ? 
-                this.state.users.map( (userscore, index) => {
-                    return(
-                        <>
-                            <div className="Scorecard">
-                                <br />
-                                <ScoreInput course={course} user={users[index].user} friends={this.state.friends} index={index} userscore={userscore} changeUser={this.changeUser} changeData={this.changeData}/>
-                                <br />
-                            </div>
-                            <br />
-                            <br />
-                        </>
-                    )
-                })
-                 : null} 
-                <br />
-                <br />
-                {this.state.course && this.state.users.length < 12 ? <button onClick={this.addNewUser}>Add another score </button>: null}
-                <br />
-                <br />
-                <button onClick={this.submitScores}>Submit Scores</button>
-            </div>
-        )
+            )
+        }
     }
 }
 

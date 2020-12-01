@@ -35,7 +35,7 @@ class Login extends Component {
         <div>
             <Grid textAlign='center' verticalAlign='middle'>
                 <Grid.Column style={{maxWidth: 450}}>
-                    <Header as='h2' textAlign='center'>
+                    <Header as='h2' textAlign='center' style={{color: 'white', fontFamily: "'Copperplate', 'Alegreya Sans SC', sans-serif"}}>
                         Log-in to your account
                     </Header>
                         <Form className='login-form' onSubmit={(event) => this.handleSubmit(event)} size='large'>
@@ -43,9 +43,7 @@ class Login extends Component {
                                 <Form.Input  fluid icon='user' iconPosition='left' type='text' name='email' placeholder='E-mail address' value={this.state.email} onChange={this.handleChange}/><br />
 
                                 <Form.Input fluid icon='lock' iconPosition='left' type='password' name='password' placeholder='Password' value={this.state.password} onChange={this.handleChange}/><br />
-
-                                    {/* <input type='submit'/>  */}
-                                <Button color='olive' fluid size='large'>
+                                <Button color='green' fluid size='large'>
                                     Login
                                 </Button>    
                         </Segment>
