@@ -15,6 +15,16 @@ class UserReportContainer extends Component {
         .then(user => this.setState({ user }))
         .catch(errors => console.log(errors))
     }
+     
+     componentDidUpdate(prevProps) {
+       if(prevProps.match.params.id !== this.props.match.params.id){
+        const userId = this.props.match.params.id
+        fetch(`https://fore-the-record-backend.herokuapp.com/users/${userId}`)
+        .then(resp => resp.json())
+        .then(user => this.setState({ user }))
+        .catch(errors => console.log(errors))
+       }
+     }
 
     render(){
         const {user} = this.state

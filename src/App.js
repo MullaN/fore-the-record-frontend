@@ -1,5 +1,5 @@
 import './App.css';
-import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
 import Navbar from './Components/Navbar'
 import HomeContainer from './Containers/HomeContainer'
 import UserReportContainer from './Containers/UserReportContainer'
@@ -44,13 +44,15 @@ class App extends Component {
         <Router>
           <Navbar user={this.state.user}/>
           <main>
-            <Route path='/' exact component={() => <HomeContainer />} />
-            <Route path='/users/:id' component={UserReportContainer} />
-            <Route path='/courses' component={CoursesContainer} />
-            <Route path='/submitscores' component={() => this.state.user ? <SumbitScoresContainer user={this.state.user}/>  : <Redirect to="/login" />} />
-            <Route path='/signup' component={() => this.state.user ? <Redirect to="/" /> : <Signup loginUser={this.loginUser}/>} />
-            <Route path='/login' component={() => this.state.user ? <Redirect to="/" /> : <Login loginUser={this.loginUser}/>} />
-            <Route path='/logout' component={() => this.state.user ? this.logoutUser() : <Redirect to="/" />} />
+            <Switch>
+              <Route path='/' exact component={() => <HomeContainer />} />
+              <Route exact path='/users/:id' component={UserReportContainer} />
+              <Route path='/courses' component={CoursesContainer} />
+              <Route path='/submitscores' component={() => this.state.user ? <SumbitScoresContainer user={this.state.user}/>  : <Redirect to="/login" />} />
+              <Route path='/signup' component={() => this.state.user ? <Redirect to="/" /> : <Signup loginUser={this.loginUser}/>} />
+              <Route path='/login' component={() => this.state.user ? <Redirect to="/" /> : <Login loginUser={this.loginUser}/>} />
+              <Route path='/logout' component={() => this.state.user ? this.logoutUser() : <Redirect to="/" />} />
+            </Switch>
           </main>
         </Router>
       </div>

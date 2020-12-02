@@ -13,6 +13,15 @@ class ScoreCardContainer extends Component {
             rounds.name ? this.setState({rounds: rounds.top_ten_rounds}) : this.setState({ rounds })})
     }
 
+    componentDidUpdate(prevProps, prevState) {
+        if(prevProps.url !== this.props.url){
+        fetch(this.props.url)
+        .then(resp => resp.json())
+        .then(rounds => {
+            rounds.name ? this.setState({rounds: rounds.top_ten_rounds}) : this.setState({ rounds })})
+        }
+      }
+
     render(){
         return(
             <div className="Scorecard">

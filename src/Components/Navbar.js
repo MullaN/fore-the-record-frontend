@@ -1,5 +1,5 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
  
 const link = {
   height: '100%',
@@ -34,4 +34,4 @@ class Navbar extends React.Component {
   }
 }
  
-export default Navbar;
+export default withRouter(Navbar);
