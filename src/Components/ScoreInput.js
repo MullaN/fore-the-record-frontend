@@ -1,6 +1,9 @@
 import React from 'react'
+import { Dropdown } from 'semantic-ui-react'
 
 const ScoreInput = (props) => {
+    let options = []
+    props.friends.forEach(friend => options.push({key: friend.id, text: friend.username, value: friend.id, image: {avatar: true, src: friend.avatar}}))
     return (
         <table>
         <tr>
@@ -27,10 +30,7 @@ const ScoreInput = (props) => {
         <tr>
         <td>{props.user ? <img src={props.user.avatar} alt={props.user.username}/> 
         : 
-        <select name="user" id="user" onChange={(e) => props.changeUser(e, props.index)}>
-            <option value="null">Pick Friend</option>
-            {props.friends.map(friend => <option value={friend.id}>{friend.username}</option>)}
-        </select>
+        <Dropdown placeholder='Friend' search selection options={options} selectOnBlur={false} onChange={(e, v) => props.changeUser(v, props.index)}/>
         }</td>
             <td>{props.course['hole_1']}<hr /><input type="text" name="hole_1" value={props.userscore['hole_1']} onChange={(e) => props.changeData(e, props.index)}/></td>
             <td>{props.course['hole_2']}<hr /><input type="text" name="hole_2" value={props.userscore['hole_2']} onChange={(e) => props.changeData(e, props.index)}/></td>

@@ -3,7 +3,7 @@ import React from 'react'
 const Score = (props) => {
     return(
         <tr>
-            <td><img src={props.round.user.avatar} alt={props.round.user.username}/></td>
+            <td><div className='AvatarLink'><a href={`/users/${props.round.user.id}`}><img src={props.round.user.avatar} alt={props.round.user.username} title={props.round.user.username}/></a></div></td>
             <td>{props.round.course.name}</td>
             <td>{props.round.score}</td>
             <td>{props.round.course['hole_1']}<hr />{props.round['hole_1']}</td>

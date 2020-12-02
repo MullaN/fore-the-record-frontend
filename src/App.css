@@ -57,6 +57,51 @@
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
+  margin: 2vw;
+}
+
+#submit-scores-container > button:disabled{
+  background-color: #414141;
+  border: solid white 1px;
+  border-radius: 15px;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  -webkit-animation: seconds 1.0s forwards;
+  -webkit-animation-iteration-count: 1;
+  -webkit-animation-delay: 3s;
+  animation: seconds 1.0s forwards;
+  animation-iteration-count: 1;
+  animation-delay: 3s;
+  position: relative;
+}
+
+@-webkit-keyframes seconds {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    left: -9999px; 
+    position: absolute;   
+  }
+}
+@keyframes seconds {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    left: -9999px;
+    position: absolute;     
+  }
+}
+
+.AvatarLink {
+  cursor: pointer;
 }
 
 /*.App-logo {

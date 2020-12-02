@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import ScoreInput from '../Components/ScoreInput'
 import { Redirect } from 'react-router-dom'
+import {Dropdown} from 'semantic-ui-react'
 import '../App.css'
 
 class SumbitScoresContainer extends Component {
@@ -26,7 +27,8 @@ class SumbitScoresContainer extends Component {
                 hole_18: ''}],
         courses: [],
         friends: [],
-        submitted: false
+        submitted: false,
+        totalFriends: 0
     }
 
     componentDidMount(){
@@ -41,16 +43,16 @@ class SumbitScoresContainer extends Component {
            return Promise.all([resp1.json(), resp2.json()]) 
         })
         .then(([courses, friends]) => {
-          this.setState({courses, friends})
+            if (friends[0]) {
+                this.setState({courses, friends, totalFriends: friends.length})
+            } else {
+                this.setState({totalFriends: -1})
+            }
         });
     }
 
-    selectionChange = (e) =>{
-        if (e.target.value !== 'null') {
-            this.setState({course: e.target.value})
-        } else {
-            this.setState({course: null})
-        }
+    selectionChange = (e, v) =>{
+        this.setState({course: v.value})
     }
 
     changeData = (e, index) => {
@@ -65,14 +67,14 @@ class SumbitScoresContainer extends Component {
         this.setState({users})
     }
     
-    changeUser = (e, index) => {
-        if(e.target.value !== 'null'){
-            let users = [...this.state.users]
-            let user = {...users[index]}
-            user.user = this.state.friends.find(friend => friend.id === parseInt(e.target.value))
-            users[index] = user
-            this.setState({users})
-        }
+    changeUser = (v, index) => {
+        let users = [...this.state.users]
+        let user = {...users[index]}
+        user.user = this.state.friends.find(friend => friend.id === parseInt(v.value))
+        users[index] = user
+        let friends = [...this.state.friends]
+        friends = friends.filter(friend => friend.id !== parseInt(v.value))
+        this.setState({users, friends})
     }
 
     addNewUser = () => {
@@ -123,8 +125,17 @@ class SumbitScoresContainer extends Component {
                     <Redirect to={`/users/${this.props.user.id}`} />
                 </>
             )
+        } else if (this.state.totalFriends < 0) {
+            return (
+                <div>
+                    <h1>No Friends Found</h1>
+                    <p>We were unable to find any of your Steam friends in our system. This could be due to your Steam friends list being private. To make your friends list public, please see the following <a href='https://support.steampowered.com/kb_article.php?ref=4113-YUDH-6401'target="_blank" rel="noreferrer">Steam article</a>.</p>
+                </div>
+            )
         } else {
             const {courses, users} = this.state
+            let options = []
+            courses.forEach(course => options.push({key: course.id, text: course.name, value: course.id}))
             let course = null
             if (this.state.course) {
                 course = this.state.courses.find(course => course.id === parseInt(this.state.course))
@@ -140,10 +151,7 @@ class SumbitScoresContainer extends Component {
                     
                     : 
                     null}
-                    <select name="course" id="course" onChange={this.selectionChange}>
-                        <option value='null'>Please Select the Course</option>
-                        {courses.map(course => <option value={course.id}>{course.name}</option>)}
-                    </select>
+                    <Dropdown inline placeholder='Select Course' search selection options={options} selectOnBlur={false} onChange={(e, v) => this.selectionChange(e, v)}/>
                     <br />
                     <br />
                     {this.state.course ? 
@@ -155,18 +163,26 @@ class SumbitScoresContainer extends Component {
                                     <ScoreInput course={course} user={users[index].user} friends={this.state.friends} index={index} userscore={userscore} changeUser={this.changeUser} changeData={this.changeData}/>
                                     <br />
                                 </div>
+                                {index < this.state.users.length - 1 ? 
+                                <>
                                 <br />
                                 <br />
+                                </>
+                                :
+                                null
+                                }
                             </>
                         )
                     })
                     : null} 
-                    <br />
-                    <br />
-                    {this.state.course && this.state.users.length < 12 ? <button onClick={this.addNewUser}>Add another score </button>: null}
-                    <br />
-                    <br />
+                    {this.state.course ? 
+                    <>
+                    {this.state.users.length < 12 && this.state.users.length <= this.state.totalFriends ? <button onClick={this.addNewUser}>Add a friend's score </button> : (this.state.users.length === 12 ? <button disabled={true}>Max 12 Users</button> : <button disabled={true}>Added All Friends</button>)}
                     <button id='submit-button' onClick={this.submitScores}>Submit Scores</button>
+                    </>
+                    :
+                    null
+                    }
                 </div>
             )
         }
