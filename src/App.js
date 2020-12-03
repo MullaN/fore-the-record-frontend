@@ -7,6 +7,8 @@ import Signup from './Components/Signup'
 import Login from './Components/Login'
 import CoursesContainer from './Containers/CoursesContainer'
 import SumbitScoresContainer from './Containers/SubmitScoresContainer'
+import SteamLogin from './Components/SteamLogin'
+import OauthCallback from './Components/OauthCallback'
 import React, {Component} from 'react'
 
 class App extends Component {
@@ -46,12 +48,14 @@ class App extends Component {
           <main>
             <Switch>
               <Route path='/' exact component={() => <HomeContainer />} />
-              <Route exact path='/users/:id' component={UserReportContainer} />
+              <Route path='/users/:id' component={UserReportContainer} />
               <Route path='/courses' component={CoursesContainer} />
               <Route path='/submitscores' component={() => this.state.user ? <SumbitScoresContainer user={this.state.user}/>  : <Redirect to="/login" />} />
               <Route path='/signup' component={() => this.state.user ? <Redirect to="/" /> : <Signup loginUser={this.loginUser}/>} />
               <Route path='/login' component={() => this.state.user ? <Redirect to="/" /> : <Login loginUser={this.loginUser}/>} />
               <Route path='/logout' component={() => this.state.user ? this.logoutUser() : <Redirect to="/" />} />
+              <Route path='/steamlogin' component={SteamLogin} />
+              <Route path='/oauth_callback' component={() => this.state.user && !(parseInt(this.props.user.steam_id) > 0) ? <OauthCallback userId={this.state.user.id}/> : <Redirect to="/" />}/>
             </Switch>
           </main>
         </Router>

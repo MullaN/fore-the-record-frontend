@@ -18,11 +18,20 @@ class Navbar extends React.Component {
         <NavLink to="/" exact style={link} activeStyle={{ background: 'darkgreen' }}>Home</NavLink>
         <NavLink to="/courses" exact style={link} activeStyle={{ background: 'darkgreen' }}>Courses</NavLink>
         {this.props.user ?
+          (
+            parseInt(this.props.user.steam_id) > 0 ? 
           <>
             <NavLink to={`/users/${this.props.user.id}`} exact style={link} activeStyle={{ background: 'darkgreen' }}>My Scorecard</NavLink>
             <NavLink to="/submitscores" exact style={link} activeStyle={{ background: 'darkgreen' }}>Submit Scores</NavLink>
             <NavLink to="/logout" exact style={{...link, float:'right'}} activeStyle={{ background: 'darkgreen' }}>Logout</NavLink>
           </>
+          :
+          <>
+            <NavLink to="/steamlogin" exact style={link} activeStyle={{ background: 'darkgreen' }}>My Scorecard</NavLink>
+            <NavLink to="/steamlogin" exact style={link} activeStyle={{ background: 'darkgreen' }}>Submit Scores</NavLink>
+            <NavLink to="/logout" exact style={{...link, float:'right'}} activeStyle={{ background: 'darkgreen' }}>Logout</NavLink>
+          </>
+          )
           :
           <>
             <NavLink to="/login" exact style={{...link, float:'right'}} activeStyle={{ background: 'darkgreen' }}>Login</NavLink>
