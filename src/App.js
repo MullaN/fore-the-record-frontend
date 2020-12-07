@@ -55,7 +55,7 @@ class App extends Component {
               <Route path='/login' component={() => this.state.user ? <Redirect to="/" /> : <Login loginUser={this.loginUser}/>} />
               <Route path='/logout' component={() => this.state.user ? this.logoutUser() : <Redirect to="/" />} />
               <Route path='/steamlogin' component={SteamLogin} />
-              <Route path='/oauth_callback' component={() => this.state.user && !(parseInt(this.props.user.steam_id) > 0) ? <OauthCallback userId={this.state.user.id}/> : <Redirect to="/" />}/>
+              <Route path='/oauth_callback' component={() => this.state.user ? <Redirect to="/" /> : <OauthCallback loginUser={this.loginUser}/>} />
             </Switch>
           </main>
         </Router>

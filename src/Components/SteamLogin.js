@@ -3,7 +3,7 @@ import React from 'react'
 const SteamLogin = () => {
     return(
         <div>
-            <h1>Please link your account Fore the Record account with your Steam account to use this portion of the site.</h1>
+            <h2>Please link your account Fore the Record account with your Steam account to use this portion of the site.</h2>
             <form action="https://steamcommunity.com/openid/login" method="post">
                 <input type="hidden" name="openid.identity"
                     value="http://specs.openid.net/auth/2.0/identifier_select" />
