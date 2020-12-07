@@ -47,6 +47,8 @@ class SumbitScoresContainer extends Component {
                 this.setState({courses, friends, totalFriends: friends.length})
             } else if (!!friends.errors) {
                 this.setState({totalFriends: -1})
+            } else {
+                this.setState({courses})
             }
         });
     }
