@@ -3,8 +3,6 @@ import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-d
 import Navbar from './Components/Navbar'
 import HomeContainer from './Containers/HomeContainer'
 import UserReportContainer from './Containers/UserReportContainer'
-import Signup from './Components/Signup'
-import Login from './Components/Login'
 import CoursesContainer from './Containers/CoursesContainer'
 import SumbitScoresContainer from './Containers/SubmitScoresContainer'
 import SteamLogin from './Components/SteamLogin'
