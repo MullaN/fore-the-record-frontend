@@ -41,8 +41,8 @@ class Navbar extends React.Component {
                     value="http://specs.openid.net/auth/2.0/identifier_select" />
                 <input type="hidden" name="openid.ns" value="http://specs.openid.net/auth/2.0" />
                 <input type="hidden" name="openid.mode" value="checkid_setup" />
-                <input type="hidden" name="openid.realm" value="http://localhost:3000" />
-                <input type="hidden" name="openid.return_to" value="http://localhost:3000/oauth_callback" />
+                <input type="hidden" name="openid.realm" value="https://fore-the-record.web.app" />
+                <input type="hidden" name="openid.return_to" value="https://fore-the-record.web.app/oauth_callback" />
                 <button type="submit" style={{background: 'transparent', border: 'none', fontSize: '0'}}><img src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/steamworks_docs/english/sits_large_border.png" alt='Login To Steam' style={{height: '3vw'}}/></button>
             </form>
           </>
