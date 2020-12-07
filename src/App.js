@@ -50,9 +50,7 @@ class App extends Component {
               <Route path='/' exact component={() => <HomeContainer />} />
               <Route path='/users/:id' component={UserReportContainer} />
               <Route path='/courses' component={CoursesContainer} />
-              <Route path='/submitscores' component={() => this.state.user ? <SumbitScoresContainer user={this.state.user}/>  : <Redirect to="/login" />} />
-              <Route path='/signup' component={() => this.state.user ? <Redirect to="/" /> : <Signup loginUser={this.loginUser}/>} />
-              <Route path='/login' component={() => this.state.user ? <Redirect to="/" /> : <Login loginUser={this.loginUser}/>} />
+              <Route path='/submitscores' component={() => this.state.user ? <SumbitScoresContainer user={this.state.user}/>  : <Redirect to="/" />} />
               <Route path='/logout' component={() => this.state.user ? this.logoutUser() : <Redirect to="/" />} />
               <Route path='/steamlogin' component={SteamLogin} />
               <Route path='/oauth_callback' component={() => this.state.user ? <Redirect to="/" /> : <OauthCallback loginUser={this.loginUser}/>} />
