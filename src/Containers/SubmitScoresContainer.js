@@ -45,7 +45,7 @@ class SumbitScoresContainer extends Component {
         .then(([courses, friends]) => {
             if (friends[0]) {
                 this.setState({courses, friends, totalFriends: friends.length})
-            } else {
+            } else if (!!!friends.errors) {
                 this.setState({totalFriends: -1})
             }
         });
@@ -56,12 +56,14 @@ class SumbitScoresContainer extends Component {
     }
 
     changeData = (e, index) => {
-        let value = ''
-        if (parseInt(e.target.value) > 0 && parseInt(e.target.value) < 15) {
-            value = e.target.value
-        }
         let users = [...this.state.users]
         let user = {...users[index]}
+        let value = user[e.target.name]
+        if (parseInt(e.target.value) > 0 && parseInt(e.target.value) < 15) {
+            value = e.target.value
+        } else if (e.target.value === '' ) {
+            value = ''
+        }
         user[e.target.name] = value
         users[index] = user
         this.setState({users})
@@ -129,7 +131,7 @@ class SumbitScoresContainer extends Component {
             return (
                 <div>
                     <h1>No Friends Found</h1>
-                    <p>We were unable to find any of your Steam friends in our system. This could be due to your Steam friends list being private. To make your friends list public, please see the following <a href='https://support.steampowered.com/kb_article.php?ref=4113-YUDH-6401'target="_blank" rel="noreferrer">Steam article</a>.</p>
+                    <p>We were unable to find any of your Steam friends. This could be due to your Steam friends list being private. To make your friends list public, please see the following <a href='https://support.steampowered.com/kb_article.php?ref=4113-YUDH-6401'target="_blank" rel="noreferrer">Steam article</a>.</p>
                 </div>
             )
         } else {
