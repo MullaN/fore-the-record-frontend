@@ -43,9 +43,10 @@ class SumbitScoresContainer extends Component {
            return Promise.all([resp1.json(), resp2.json()]) 
         })
         .then(([courses, friends]) => {
+            debugger
             if (friends[0]) {
                 this.setState({courses, friends, totalFriends: friends.length})
-            } else if (!!friends.errors) {
+            } else if (!!friends.error) {
                 this.setState({totalFriends: -1})
             } else {
                 this.setState({courses})
